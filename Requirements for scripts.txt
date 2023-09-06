@@ -1,0 +1,17 @@
+Requirements 
+
+Windows
+-install python
+	-download windows installer exe
+-install pip
+	-Should be installed with python, but needs to be added to PATH
+-sign into gmail account
+-enable hot keys in gmail
+
+Dependencies (can all be installed with pip)
+-requests
+-bs4
+-scrapetube
+-keyboard
+-selenium
+-pyautogui

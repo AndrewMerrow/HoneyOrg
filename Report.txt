@@ -1,0 +1,30 @@
+8/29
+Progress
+
+Testbed
+-Created VMs and am working on networking between them
+-Uploaded and testing scripts (time waste, email)
+	-Trouble with email script (linux can't run it without sudo)
+	-Email working on windows
+-TODO
+	-Make scripts to create and join meetings
+		-auto join zoom meetings tutorial
+	-Look into generate and send data
+	-Create database server
+
+FL
+-Studying code base
+-Got a sample running
+-Researching pi clusters
+
+-TODO
+	-Split code base into server and agent components
+	-Setup pi cluster to have one server and accept connections from agents
+	-Setup pi cluster to have agents that want to connect to the server
+	-What data needs to be on each agent? (TCP) (HTTP post)
+
+-Move toward mal flow detection
+-read up on neural networks
+-Setup database server (financial spreadsheets, etc.)
+-gpt 3.5 (python open API)
+	-generate data, save as file
