@@ -14,11 +14,25 @@ def connect_to_db():
 def insert_file(conn):
     try:
         cursor = conn.cursor()
-        cursor.execute("COPY exmployees(first_name, last_name, dob) FROM 'Enter file path here' DELIMITER ',' CSV HEADER;")
+        cursor.execute("COPY employees(first_name, last_name, dob) FROM 'Enter file path here' DELIMITER ',' CSV HEADER;")
 
     except Exception as e:
         print("Could not insert file: " + str(e))
 
+def retreive_file(conn):
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM employees;")
+        all_data = cursor.fetchall()
+        for data in all_data:
+            print(data)
+
+    except Exception as e:
+        print("Error retreiving file: " + str(e))
+
 def main():
     conn = connect_to_db()
     insert_file(conn)
+
+if __name__ == '__main__':
+    main()
