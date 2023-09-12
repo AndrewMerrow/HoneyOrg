@@ -27,7 +27,7 @@ def retreive_file(conn):
         all_data = cursor.fetchall()
         for data in all_data:
             print(data)
-            with open('testfile.csv', 'w') as f:
+            with open('testfile.csv', 'a') as f:
                 writer = csv.writer(f, delimiter=',')
                 writer.writerow(data)
 
