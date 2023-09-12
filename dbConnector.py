@@ -1,4 +1,5 @@
 import psycopg2
+import csv
 
 def connect_to_db():
     try:
@@ -26,6 +27,9 @@ def retreive_file(conn):
         all_data = cursor.fetchall()
         for data in all_data:
             print(data)
+            with open('testfile.csv', 'w') as f:
+                writer = csv.writer(f, delimiter=',')
+                writer.writerow(data)
 
     except Exception as e:
         print("Error retreiving file: " + str(e))
