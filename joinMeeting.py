@@ -2,11 +2,11 @@ from selenium import webdriver
 import pyautogui as py
 import time
  
-passcode = "9pX9PT"
-meet_code = "272 916 9386"
+passcode = "chP8AB"
+meet_code = "82761781893"
  
 def join(meet, password):
-    driver = webdriver.Chrome()
+    driver = webdriver.Edge()
     driver.get('https://zoom.us/join')
       
  

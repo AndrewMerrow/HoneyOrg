@@ -1,5 +1,9 @@
 Requirements 
 
+Linux
+-Install git
+-psycopg2
+
 Windows
 -install python
 	-download windows installer exe
