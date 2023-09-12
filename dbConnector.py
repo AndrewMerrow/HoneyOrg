@@ -2,6 +2,7 @@ import psycopg2
 import csv
 
 def connect_to_db():
+    '''Establish initial DB connection'''
     try:
         conn = psycopg2.connect(dbname='financial', user='admin', host='192.168.0.147', password='2206')
         print("Connection established")
@@ -13,6 +14,7 @@ def connect_to_db():
     return conn
 
 def insert_file(conn):
+    '''Insert a local file into the DB'''
     try:
         cursor = conn.cursor()
         cursor.execute("COPY employees(first_name, last_name, dob) FROM 'Enter file path here' DELIMITER ',' CSV HEADER;")
@@ -21,15 +23,18 @@ def insert_file(conn):
         print("Could not insert file: " + str(e))
 
 def retreive_file(conn):
+    '''Retreive all data from teh employees table and wrtie to a CSV'''
     try:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM employees;")
         all_data = cursor.fetchall()
+        f = open('testfile.csv', 'w')
+        writer = csv.writer(f, delimiter=',')
         for data in all_data:
             print(data)
-            with open('testfile.csv', 'a') as f:
-                writer = csv.writer(f, delimiter=',')
-                writer.writerow(data)
+            #with open('testfile.csv', 'a') as f:
+               #writer = csv.writer(f, delimiter=',')
+            writer.writerow(data)
 
     except Exception as e:
         print("Error retreiving file: " + str(e))
