@@ -30,6 +30,7 @@ def retreive_file(conn):
         all_data = cursor.fetchall()
         f = open('testfile.csv', 'w')
         writer = csv.writer(f, delimiter=',')
+        writer.writerow(["Employee ID", "First Name", "Last Name", "Date of Birth"])
         for data in all_data:
             print(data)
             #with open('testfile.csv', 'a') as f:
