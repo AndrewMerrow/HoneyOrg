@@ -17,7 +17,11 @@ def insert_file(conn):
     '''Insert a local file into the DB'''
     try:
         cursor = conn.cursor()
-        cursor.execute("COPY employees(first_name, last_name, dob) FROM 'Enter file path here' DELIMITER ',' CSV HEADER;")
+        with open('/home/mperez/Documents/Tasks/HoneyOrg/testfile.csv', 'r') as f:
+            next(f)
+        cursor.copy_from(f, 'employees', sep=',')
+        #cursor.execute("COPY employees(first_name, last_name, dob) FROM 'Enter file path here' DELIMITER ',' CSV HEADER;")
+        conn.commit()
 
     except Exception as e:
         print("Could not insert file: " + str(e))
