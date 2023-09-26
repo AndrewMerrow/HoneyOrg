@@ -28,6 +28,10 @@ def insert_file(conn):
     except Exception as e:
         print("Could not insert file: " + str(e))
 
+    cursor.execute("SELECT * FROM employees;")
+    all_data = cursor.fetchall()
+    print(all_data)
+
 def retreive_file(conn):
     '''Retreive all data from teh employees table and wrtie to a CSV'''
     try:
