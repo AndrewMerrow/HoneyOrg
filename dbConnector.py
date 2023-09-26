@@ -17,7 +17,7 @@ def insert_file(conn):
     '''Insert a local file into the DB'''
     try:
         cursor = conn.cursor()
-        with open('/home/mperez/Documents/Tasks/HoneyOrg/testfile.csv', 'r') as f:
+        with open('/home/mperez/Documents/Tasks/HoneyOrg/employees.csv', 'r') as f:
             next(f)
             for line in f:
                 print(line.rstrip('\n'))
