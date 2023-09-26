@@ -34,7 +34,7 @@ def insert_file(conn):
         print(line)
 
 def retreive_file(conn):
-    '''Retreive all data from teh employees table and wrtie to a CSV'''
+    '''Retreive all data from the employees table and wrtie to a CSV'''
     try:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM employees;")
