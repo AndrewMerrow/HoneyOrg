@@ -19,7 +19,8 @@ def insert_file(conn):
         cursor = conn.cursor()
         with open('/home/mperez/Documents/Tasks/HoneyOrg/testfile.csv', 'r') as f:
             next(f)
-            print(f)
+            for line in f:
+                print(line)
         #cursor.copy_from(f, 'employees', sep=',')
         #cursor.execute("COPY employees(first_name, last_name, dob) FROM 'Enter file path here' DELIMITER ',' CSV HEADER;")
         conn.commit()
