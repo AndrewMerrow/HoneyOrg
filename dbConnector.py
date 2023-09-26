@@ -17,19 +17,21 @@ def insert_file(conn):
     '''Insert a local file into the DB'''
     try:
         cursor = conn.cursor()
+        #read the file with the data to insert into the table
         with open('/home/mperez/Documents/Tasks/HoneyOrg/employees.csv', 'r') as f:
             next(f)
             for line in f:
                 print(line.rstrip('\n').split(','))
+                #split the line into seperate data elements 
                 values = line.rstrip('\n').split(',')
+                #Insert the elements into the db table
                 cursor.execute("INSERT INTO employees (emp_id, first_name, last_name, dob) VALUES (%s, %s, %s, %s)", (values[0], values[1], values[2], values[3]))
-            #cursor.copy_from(f, 'employees', sep=',', columns=("emp_id", "first_name", "last_name", "dob"))
-            #cursor.execute("INSERT INTO employees (emp_id, first_name, last_name, dob) VALUES (%s, %s, %s, %s)", ())
             conn.commit()
 
     except Exception as e:
         print("Could not insert file: " + str(e))
 
+    #Print the data from the table to ensure the change was successful
     cursor.execute("SELECT * FROM employees;")
     all_data = cursor.fetchall()
     for line in all_data:
@@ -55,7 +57,7 @@ def retreive_file(conn):
 
 def main():
     conn = connect_to_db()
-    insert_file(conn)
-    #retreive_file(conn)
+    #insert_file(conn)
+    retreive_file(conn)
 if __name__ == '__main__':
     main()
