@@ -20,9 +20,10 @@ def insert_file(conn):
         with open('/home/mperez/Documents/Tasks/HoneyOrg/employees.csv', 'r') as f:
             next(f)
             for line in f:
-                print(line.rstrip('\n'))
+                print(line.rstrip('\n').split(','))
+                
             cursor.copy_from(f, 'employees', sep=',', columns=("emp_id", "first_name", "last_name", "dob"))
-        #cursor.execute("COPY employees(first_name, last_name, dob) FROM 'Enter file path here' DELIMITER ',' CSV HEADER;")
+            #cursor.execute("INSERT INTO employees (emp_id, first_name, last_name, dob) VALUES (%s, %s, %s, %s)", ())
             conn.commit()
 
     except Exception as e:
