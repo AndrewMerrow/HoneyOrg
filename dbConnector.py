@@ -47,7 +47,7 @@ def retreive_file(conn):
 
 def main():
     conn = connect_to_db()
-    #insert_file(conn)
-    retreive_file(conn)
+    insert_file(conn)
+    #retreive_file(conn)
 if __name__ == '__main__':
     main()
