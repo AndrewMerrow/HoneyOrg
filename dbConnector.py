@@ -23,7 +23,7 @@ def insert_file(conn):
                 print(line.rstrip('\n'))
             cursor.copy_from(f, 'employees', sep=',', columns=("emp_id", "first_name", "last_name", "dob"))
         #cursor.execute("COPY employees(first_name, last_name, dob) FROM 'Enter file path here' DELIMITER ',' CSV HEADER;")
-        conn.commit()
+            conn.commit()
 
     except Exception as e:
         print("Could not insert file: " + str(e))
