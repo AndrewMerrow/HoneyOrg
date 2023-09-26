@@ -21,8 +21,9 @@ def insert_file(conn):
             next(f)
             for line in f:
                 print(line.rstrip('\n').split(','))
-                
-            cursor.copy_from(f, 'employees', sep=',', columns=("emp_id", "first_name", "last_name", "dob"))
+                values = line.rstrip('\n').split(',')
+                cursor.execute("INSERT INTO employees (emp_id, first_name, last_name, dob) VALUES (%s, %s, %s, %s)", (values[0], values[1], values[2], values[3]))
+            #cursor.copy_from(f, 'employees', sep=',', columns=("emp_id", "first_name", "last_name", "dob"))
             #cursor.execute("INSERT INTO employees (emp_id, first_name, last_name, dob) VALUES (%s, %s, %s, %s)", ())
             conn.commit()
 
