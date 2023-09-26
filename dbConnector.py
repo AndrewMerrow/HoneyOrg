@@ -21,7 +21,7 @@ def insert_file(conn):
             next(f)
             for line in f:
                 print(line.rstrip('\n'))
-            cursor.copy_from(f, 'employees', sep=',', columns=("emp_id", "first_name", "last_name", "dob"))
+            cursor.copy_from(f, 'employees', sep=',', columns=("emp_id", "first_name", "last_name"))
         #cursor.execute("COPY employees(first_name, last_name, dob) FROM 'Enter file path here' DELIMITER ',' CSV HEADER;")
             conn.commit()
 
