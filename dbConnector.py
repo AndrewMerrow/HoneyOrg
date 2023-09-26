@@ -30,7 +30,8 @@ def insert_file(conn):
 
     cursor.execute("SELECT * FROM employees;")
     all_data = cursor.fetchall()
-    print(all_data)
+    for line in all_data:
+        print(line)
 
 def retreive_file(conn):
     '''Retreive all data from teh employees table and wrtie to a CSV'''
