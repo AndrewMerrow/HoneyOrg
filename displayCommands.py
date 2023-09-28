@@ -9,6 +9,6 @@ def displayCommands():
     displayText = []
     for line in commands.readlines():
         if line.find("Command found") != -1:
-            displayText.append(line)
+            displayText.append(line.rstrip("\n"))
 
     return displayText
