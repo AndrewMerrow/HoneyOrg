@@ -4,5 +4,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello():
-    return 'Hello, World!'
+def displayCommands():
+    commands = open("/home/bsalas/cowrie.log", "r")
+    commands = commands.readlines()
+    return commands
