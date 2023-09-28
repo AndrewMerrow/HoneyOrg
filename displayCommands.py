@@ -10,5 +10,13 @@ def displayCommands():
     for line in commands.readlines():
         if line.find("Command found") != -1:
             displayText.append(line.rstrip("\n"))
+        elif line.find("login attempt") != -1:
+            displayText.append(line.rstrip("\n"))
+        elif line.find("Connection lost") != -1:
+            displayText.append(line.rstrip("\n"))
+        elif line.find("connection lost") != -1:
+            displayText.append(line.rstrip("\n"))
+
+
 
     return displayText
