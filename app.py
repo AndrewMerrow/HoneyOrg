@@ -21,7 +21,7 @@ for line in commands.readlines():
 #display_text = "test"
 
 app.layout = html.Div([
-    html.Meta(httpEquiv="refresh",content="60"),
+    html.Meta(httpEquiv="refresh",content="5"),
     html.Div(displayText, style={'whiteSpace': 'pre-line'})
 ])
 
