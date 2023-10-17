@@ -41,7 +41,7 @@ app.layout = html.Div([
     Output(component_id='textarea', component_property='value'),
     Input(component_id='interval_component', component_property='n_intervals')
 )
-def getCommands():
+def getCommands(n_intervals):
     commands = open("/home/bsalas/cowrie.log", "r")
     displayText = []
     for line in commands.readlines():
