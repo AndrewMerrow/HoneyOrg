@@ -43,20 +43,24 @@ app.layout = html.Div([
 )
 def getCommands(n_intervals):
     commands = open("/home/bsalas/cowrie.log", "r")
-    displayText = []
+    displayText = ""
     for line in commands.readlines():
         if line.find("Command found") != -1:
             #displayText.append(line.rstrip("\n"))
-            displayText.append(line)
+            #displayText.append(line)
+            displayText = displayText + line
         elif line.find("login attempt") != -1:
             #displayText.append(line.rstrip("\n"))
-            displayText.append(line)
+            #displayText.append(line)
+            displayText = displayText + line
         elif line.find("Connection lost") != -1:
             #displayText.append(line.rstrip("\n"))
-            displayText.append(line)
+            #displayText.append(line)
+            displayText = displayText + line
         elif line.find("connection lost") != -1:
             #displayText.append(line.rstrip("\n"))
-            displayText.append(line)
+            #displayText.append(line)
+            displayText = displayText + line
     return displayText
 
 if __name__ == '__main__':
