@@ -13,7 +13,7 @@ for line in commands.readlines():
     if line.find("Command found") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
-        displayDict["command"] += line
+        displayDict["command"] = line
     elif line.find("login attempt") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
