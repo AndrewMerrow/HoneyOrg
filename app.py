@@ -16,22 +16,22 @@ for line in commands.readlines():
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
         displayDict["type"].append("command")
-        displayDict["value"].append(line)
+        displayDict["value"].append(line.rstrip("\n"))
     elif line.find("login attempt") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
         displayDict["type"].append("login")
-        displayDict["value"].append(line)
+        displayDict["value"].append(line.rstrip("\n"))
     elif line.find("Connection lost") != -1:
         #displayText.append(line.rstrip("\n"))
         displayDict["type"].append("logout")
-        displayDict["value"].append(line)
+        displayDict["value"].append(line.rstrip("\n"))
         displayText.append(line)
     elif line.find("connection lost") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
         displayDict["type"].append("logout")
-        displayDict["value"].append(line)
+        displayDict["value"].append(line.rstrip("\n"))
 for k, v in displayDict.items():
     print(k, v)
 df = pd.DataFrame([displayDict])
