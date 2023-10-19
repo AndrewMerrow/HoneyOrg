@@ -9,27 +9,29 @@ app = Dash(__name__)
 commands = open("/home/bsalas/cowrie.log", "r")
 displayText = []
 displayDict = OrderedDict()
+displayDict['type'] = []
+displayDict['value'] = []
 for line in commands.readlines():
     if line.find("Command found") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
-        displayDict["type"] = "command"
-        displayDict["value"] = line
+        displayDict["type"].append("command")
+        displayDict["value"].append(line)
     elif line.find("login attempt") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
-        displayDict["type"] = "login"
-        displayDict["value"] = line
+        displayDict["type"].append("login")
+        displayDict["value"].append(line)
     elif line.find("Connection lost") != -1:
         #displayText.append(line.rstrip("\n"))
-        displayDict["type"] = "logout"
-        displayDict["value"] = line
+        displayDict["type"].append("logout")
+        displayDict["value"].append(line)
         displayText.append(line)
     elif line.find("connection lost") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
-        displayDict["type"] = "logout"
-        displayDict["value"] = line
+        displayDict["type"].append("logout")
+        displayDict["value"].append(line)
 for k, v in displayDict.items():
     print(k, v)
 df = pd.DataFrame([displayDict])
