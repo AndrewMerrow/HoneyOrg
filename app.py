@@ -68,6 +68,14 @@ app.layout = dash_table.DataTable(
                 'column_type': 'text'
             },
             'textAlign': 'left'
+        },
+
+        {
+            'if': {
+                'filter_query': '{type} = command',
+            },
+            'backgroundColoar': 'tomato',
+            'color': 'white'
         }
     ]
 )
