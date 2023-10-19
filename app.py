@@ -55,43 +55,47 @@ df = pd.DataFrame(displayDict)
 #    
 #])
 
-app.layout = dash_table.DataTable(
-    data=df.to_dict('records'),
-    sort_action='native',
-    columns=[
-        {'name': 'Type', 'id':'type', 'type':'text'},
-        {'name': 'Value', 'id':'value', 'type':'text'},
-    ],
-    style_data_conditional=[
-        {
-            'if': {
-                'column_type': 'text'
+app.layout = html.Div([
+    dcc.Interval('table-update', interval=5 * 1000, n_intervals = 0),
+    dash_table.DataTable(
+        id='table',
+        data=df.to_dict('records'),
+        sort_action='native',
+        columns=[
+            {'name': 'Type', 'id':'type', 'type':'text'},
+            {'name': 'Value', 'id':'value', 'type':'text'},
+        ],
+        style_data_conditional=[
+            {
+                'if': {
+                    'column_type': 'text'
+                },
+                'textAlign': 'left'
             },
-            'textAlign': 'left'
-        },
 
-        {
-            'if': {
-                'filter_query': '{type} = command',
+            {
+                'if': {
+                    'filter_query': '{type} = command',
+                },
+                'backgroundColor': 'tomato',
+                'color': 'white'
             },
-            'backgroundColor': 'tomato',
-            'color': 'white'
-        },
 
-        {
-            'if': {
-                'filter_query': '{type} = login || {type} = logout',
-            },
-            'backgroundColor': '#0000ff',
-            'color': 'white'
-        }
-    ]
+            {
+                'if': {
+                    'filter_query': '{type} = login || {type} = logout',
+                },
+                'backgroundColor': '#0000ff',
+                'color': 'white'
+            }
+        ]
+    )
+])
+
+@callback(
+    Output(component_id='table', component_property='data'),
+    Input(component_id='interval_component', component_property='n_intervals')
 )
-
-#@callback(
-#    Output(component_id='textarea', component_property='value'),
-#    Input(component_id='interval_component', component_property='n_intervals')
-#)
 def getCommands(n_intervals):
     commands = open("/home/bsalas/cowrie.log", "r")
     displayDict = OrderedDict()
@@ -99,27 +103,28 @@ def getCommands(n_intervals):
     for line in commands.readlines():
         if line.find("Command found") != -1:
             #displayText.append(line.rstrip("\n"))
-            #displayText.append(line)
-            displayText = displayText + line
-            displayDict["command"] = line
+            displayText.append(line)
+            displayDict["type"].append("command")
+            displayDict["value"].append(line.rstrip("\n"))
         elif line.find("login attempt") != -1:
             #displayText.append(line.rstrip("\n"))
-            #displayText.append(line)
-            displayText = displayText + line
-            displayDict["login"] = line
+            displayText.append(line)
+            displayDict["type"].append("login")
+            displayDict["value"].append(line.rstrip("\n"))
         elif line.find("Connection lost") != -1:
             #displayText.append(line.rstrip("\n"))
-            #displayText.append(line)
-            displayText = displayText + line
+            displayDict["type"].append("logout")
+            displayDict["value"].append(line.rstrip("\n"))
+            displayText.append(line)
         elif line.find("connection lost") != -1:
             #displayText.append(line.rstrip("\n"))
-            #displayText.append(line)
-            displayText = displayText + line
-            displayDict["logout"] = line
+            displayText.append(line)
+            displayDict["type"].append("logout")
+            displayDict["value"].append(line.rstrip("\n"))
 
     df = pd.DataFrame(displayDict)
     
-    return displayText
+    return df.to_dict('records')
 
 if __name__ == '__main__':
     app.run(debug=True)
