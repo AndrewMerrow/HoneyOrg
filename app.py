@@ -56,7 +56,8 @@ app.layout = dash_table.DataTable(
         {'name': 'Commands', 'id':'Commands', 'type':'text'},
         {'name': 'Login', 'id':'Login', 'type':'text'},
         {'name': 'Logout', 'id':'Logout', 'type':'text'},
-    ]
+    ],
+    editable=True
 )
 
 #@callback(
