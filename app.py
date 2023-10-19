@@ -74,7 +74,7 @@ app.layout = dash_table.DataTable(
             'if': {
                 'filter_query': '{type} = command',
             },
-            'backgroundColoar': 'tomato',
+            'backgroundColor': 'tomato',
             'color': 'white'
         }
     ]
