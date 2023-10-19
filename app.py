@@ -99,7 +99,8 @@ app.layout = html.Div([
 def getCommands(n_intervals):
     commands = open("/home/bsalas/cowrie.log", "r")
     displayDict = OrderedDict()
-    displayText = ""
+    displayDict['type'] = []
+    displayDict['value'] = []
     for line in commands.readlines():
         if line.find("Command found") != -1:
             displayDict["type"].append("command")
