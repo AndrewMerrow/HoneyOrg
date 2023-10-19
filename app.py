@@ -26,7 +26,8 @@ for line in commands.readlines():
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
         displayDict["logout"] = line
-
+for k, v in displayDict.items():
+    print(k, v)
 df = pd.DataFrame([displayDict])
 #df['id'] = df.index
 #display_text = "test"
