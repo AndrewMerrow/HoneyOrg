@@ -7,53 +7,26 @@ app = Dash(__name__)
 
 
 commands = open("/home/bsalas/cowrie.log", "r")
-displayText = []
 displayDict = OrderedDict()
 displayDict['type'] = []
 displayDict['value'] = []
 for line in commands.readlines():
     if line.find("Command found") != -1:
-        #displayText.append(line.rstrip("\n"))
-        displayText.append(line)
         displayDict["type"].append("command")
         displayDict["value"].append(line.rstrip("\n"))
     elif line.find("login attempt") != -1:
-        #displayText.append(line.rstrip("\n"))
-        displayText.append(line)
         displayDict["type"].append("login")
         displayDict["value"].append(line.rstrip("\n"))
     elif line.find("Connection lost") != -1:
-        #displayText.append(line.rstrip("\n"))
         displayDict["type"].append("logout")
         displayDict["value"].append(line.rstrip("\n"))
-        displayText.append(line)
     elif line.find("connection lost") != -1:
-        #displayText.append(line.rstrip("\n"))
-        displayText.append(line)
         displayDict["type"].append("logout")
         displayDict["value"].append(line.rstrip("\n"))
 for k, v in displayDict.items():
     print(k, v)
 df = pd.DataFrame(displayDict)
-#df['id'] = df.index
-#display_text = "test"
 
-
-#app.layout = html.Div([
-#    dcc.Interval(
-#        id='interval_component',
-#        interval=5 * 1000,
-#        n_intervals=0
-#    ),
-#    dcc.Textarea(
-#        id='textarea',
-#        value='Initial data',
-#        #style={'width:' '100%', 'height': 300}
-#    ),
-#    #html.Meta(httpEquiv="refresh",content="5"),
-#    html.Div(id='textarea-test', style={'whiteSpace': 'pre-line'})
-#    
-#])
 
 app.layout = html.Div([
     dcc.Interval('table-update', interval=5 * 1000, n_intervals = 0),
@@ -72,7 +45,7 @@ app.layout = html.Div([
                 },
                 'textAlign': 'left'
             },
-
+            #set color for command logs
             {
                 'if': {
                     'filter_query': '{type} = command',
@@ -80,7 +53,7 @@ app.layout = html.Div([
                 'backgroundColor': 'tomato',
                 'color': 'white'
             },
-
+            #set color for login/logout logs
             {
                 'if': {
                     'filter_query': '{type} = login || {type} = logout',
@@ -97,11 +70,13 @@ app.layout = html.Div([
     Input(component_id='table-update', component_property='n_intervals')
 )
 def getCommands(n_intervals):
+    '''Update function that reads the log file and updates the table every 5 seconds'''
     commands = open("/home/bsalas/cowrie.log", "r")
     displayDict = OrderedDict()
     displayDict['type'] = []
     displayDict['value'] = []
     for line in commands.readlines():
+        #Search the log file lines for specific phrases
         if line.find("Command found") != -1:
             displayDict["type"].append("command")
             displayDict["value"].append(line.rstrip("\n"))
