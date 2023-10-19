@@ -28,6 +28,7 @@ for line in commands.readlines():
         displayDict["logout"] = line
 
 df = pd.DataFrame(displayDict)
+df['id'] = df.index
 #display_text = "test"
 
 
