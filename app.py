@@ -23,8 +23,7 @@ for line in commands.readlines():
     elif line.find("connection lost") != -1:
         displayDict["type"].append("logout")
         displayDict["value"].append(line.rstrip("\n"))
-for k, v in displayDict.items():
-    print(k, v)
+
 df = pd.DataFrame(displayDict)
 
 
