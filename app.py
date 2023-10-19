@@ -59,10 +59,17 @@ app.layout = dash_table.DataTable(
     data=df.to_dict('records'),
     sort_action='native',
     columns=[
-        {'name': 'type', 'id':'type', 'type':'text'},
-        {'name': 'talue', 'id':'value', 'type':'text'},
+        {'name': 'Type', 'id':'type', 'type':'text'},
+        {'name': 'Value', 'id':'value', 'type':'text'},
     ],
-    editable=True
+    style_data_conditional=[
+        {
+            'if': {
+                'column_type': 'text'
+            },
+            'textAlign': 'left'
+        }
+    ]
 )
 
 #@callback(
