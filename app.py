@@ -13,19 +13,23 @@ for line in commands.readlines():
     if line.find("Command found") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
-        displayDict["command"] = line
+        displayDict["type"] = "command"
+        displayDict["value"] = line
     elif line.find("login attempt") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
-        displayDict["login"] = line
+        displayDict["type"] = "login"
+        displayDict["value"] = line
     elif line.find("Connection lost") != -1:
         #displayText.append(line.rstrip("\n"))
-        displayDict["logout"] = line
+        displayDict["type"] = "logout"
+        displayDict["value"] = line
         displayText.append(line)
     elif line.find("connection lost") != -1:
         #displayText.append(line.rstrip("\n"))
         displayText.append(line)
-        displayDict["logout"] = line
+        displayDict["type"] = "logout"
+        displayDict["value"] = line
 for k, v in displayDict.items():
     print(k, v)
 df = pd.DataFrame([displayDict])
@@ -53,9 +57,8 @@ app.layout = dash_table.DataTable(
     data=df.to_dict('records'),
     sort_action='native',
     columns=[
-        {'name': 'Commands', 'id':'Commands', 'type':'text'},
-        {'name': 'Login', 'id':'Login', 'type':'text'},
-        {'name': 'Logout', 'id':'Logout', 'type':'text'},
+        {'name': 'Type', 'id':'Type', 'type':'text'},
+        {'name': 'Value', 'id':'Value', 'type':'text'},
     ],
     editable=True
 )
