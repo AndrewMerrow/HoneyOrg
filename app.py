@@ -94,7 +94,7 @@ app.layout = html.Div([
 
 @callback(
     Output(component_id='table', component_property='data'),
-    Input(component_id='interval_component', component_property='n_intervals')
+    Input(component_id='table-update', component_property='n_intervals')
 )
 def getCommands(n_intervals):
     commands = open("/home/bsalas/cowrie.log", "r")
