@@ -59,8 +59,8 @@ app.layout = dash_table.DataTable(
     data=df.to_dict('records'),
     sort_action='native',
     columns=[
-        {'name': 'Type', 'id':'Type', 'type':'text'},
-        {'name': 'Value', 'id':'Value', 'type':'text'},
+        {'name': 'type', 'id':'type', 'type':'text'},
+        {'name': 'talue', 'id':'value', 'type':'text'},
     ],
     editable=True
 )
