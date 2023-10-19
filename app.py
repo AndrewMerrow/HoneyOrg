@@ -76,6 +76,14 @@ app.layout = dash_table.DataTable(
             },
             'backgroundColor': 'tomato',
             'color': 'white'
+        },
+
+        {
+            'if': {
+                'filter_query': '{type} = login',
+            },
+            'backgroundColor': 'blue',
+            'color': 'white'
         }
     ]
 )
