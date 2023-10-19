@@ -102,23 +102,15 @@ def getCommands(n_intervals):
     displayText = ""
     for line in commands.readlines():
         if line.find("Command found") != -1:
-            #displayText.append(line.rstrip("\n"))
-            displayText.append(line)
             displayDict["type"].append("command")
             displayDict["value"].append(line.rstrip("\n"))
         elif line.find("login attempt") != -1:
-            #displayText.append(line.rstrip("\n"))
-            displayText.append(line)
             displayDict["type"].append("login")
             displayDict["value"].append(line.rstrip("\n"))
         elif line.find("Connection lost") != -1:
-            #displayText.append(line.rstrip("\n"))
             displayDict["type"].append("logout")
             displayDict["value"].append(line.rstrip("\n"))
-            displayText.append(line)
         elif line.find("connection lost") != -1:
-            #displayText.append(line.rstrip("\n"))
-            displayText.append(line)
             displayDict["type"].append("logout")
             displayDict["value"].append(line.rstrip("\n"))
 
