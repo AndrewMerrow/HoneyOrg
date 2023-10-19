@@ -34,7 +34,7 @@ for line in commands.readlines():
         displayDict["value"].append(line.rstrip("\n"))
 for k, v in displayDict.items():
     print(k, v)
-df = pd.DataFrame([displayDict])
+df = pd.DataFrame(displayDict)
 #df['id'] = df.index
 #display_text = "test"
 
