@@ -58,10 +58,10 @@ app.layout = dash_table.DataTable(
     ]
 )
 
-@callback(
-    Output(component_id='textarea', component_property='value'),
-    Input(component_id='interval_component', component_property='n_intervals')
-)
+#@callback(
+#    Output(component_id='textarea', component_property='value'),
+#    Input(component_id='interval_component', component_property='n_intervals')
+#)
 def getCommands(n_intervals):
     commands = open("/home/bsalas/cowrie.log", "r")
     displayDict = OrderedDict()
