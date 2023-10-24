@@ -14,7 +14,7 @@ for line in commands.readlines():
     if line.find("Command found") != -1:
         displayDict["type"].append("command")
         displayDict["value"].append(line.rstrip("\n"))
-        sessionID = line.split(',')
+        sessionID = line.split(',')[1]
         print(sessionID)
     elif line.find("login attempt") != -1:
         displayDict["type"].append("login")
