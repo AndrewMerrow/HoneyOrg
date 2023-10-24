@@ -28,11 +28,11 @@ for line in commands.readlines():
         displayDict["value"].append(line.rstrip("\n"))
         displayDict['ID'].append(sessionID)
         sessionID = line.split(',')[1]
-    elif line.find("connection lost") != -1:
-        displayDict["type"].append("logout")
-        displayDict["value"].append(line.rstrip("\n"))
-        sessionID = line.split(',')[1]
-        displayDict['ID'].append(sessionID)
+    #elif line.find("connection lost") != -1:
+    #    displayDict["type"].append("logout")
+    #    displayDict["value"].append(line.rstrip("\n"))
+    #    sessionID = line.split(',')[1]
+    #    displayDict['ID'].append(sessionID)
 
 df = pd.DataFrame(displayDict)
 
