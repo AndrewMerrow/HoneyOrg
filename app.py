@@ -85,20 +85,27 @@ def getCommands(n_intervals):
     displayDict = OrderedDict()
     displayDict['type'] = []
     displayDict['value'] = []
+    displayDict['ID'] = []
     for line in commands.readlines():
         #Search the log file lines for specific phrases
         if line.find("Command found") != -1:
             displayDict["type"].append("command")
             displayDict["value"].append(line.rstrip("\n"))
+            sessionID = line.split(',')[1]
+            displayDict['ID'].append(sessionID)
         elif line.find("login attempt") != -1:
             displayDict["type"].append("login")
             displayDict["value"].append(line.rstrip("\n"))
+            sessionID = line.split(',')[1]
+            displayDict['ID'].append(sessionID)
         elif line.find("Connection lost") != -1:
             displayDict["type"].append("logout")
             displayDict["value"].append(line.rstrip("\n"))
-        elif line.find("connection lost") != -1:
-            displayDict["type"].append("logout")
-            displayDict["value"].append(line.rstrip("\n"))
+            sessionID = line.split(',')[1]
+            displayDict['ID'].append(sessionID)
+        #elif line.find("connection lost") != -1:
+        #    displayDict["type"].append("logout")
+        #    displayDict["value"].append(line.rstrip("\n"))
 
     df = pd.DataFrame(displayDict)
     
