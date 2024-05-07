@@ -117,6 +117,35 @@ def render_content(tab, n_intervals, columns, style):
             #    displayDict["type"].append("logout")
             #    displayDict["value"].append(line.rstrip("\n"))
 
+        columns = columns=[
+            {'name': 'Type', 'id':'type', 'type':'text'},
+            {'name': 'ID', 'id': 'ID', 'type':'text'},
+            {'name': 'Value', 'id':'value', 'type':'text'},
+        ]
+        style = [
+            {
+                'if': {
+                    'column_type': 'text'
+                },
+                'textAlign': 'left'
+            },
+            #set color for command logs
+            {
+                'if': {
+                    'filter_query': '{type} = command',
+                },
+                'backgroundColor': 'tomato',
+                'color': 'white'
+            },
+            #set color for login/logout logs
+            {
+                'if': {
+                    'filter_query': '{type} = login || {type} = logout',
+                },
+                'backgroundColor': '#0000ff',
+                'color': 'white'
+            }
+        ]
         df = pd.DataFrame(displayDict)
         
         return df.to_dict('records'), columns, style
