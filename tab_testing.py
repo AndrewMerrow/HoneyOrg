@@ -3,7 +3,8 @@ import pandas as pd
 from collections import OrderedDict
 
 PORT = 8050
-ADDRESS = '192.168.230.15'
+#ADDRESS = '192.168.230.15'
+ADDRESS = 'localhost'
 
 app = Dash(__name__)
 
