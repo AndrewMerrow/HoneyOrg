@@ -130,7 +130,7 @@ def render_content(tab, n_intervals):
             final_value = ""
             #for value in line.rstrip('\n').split("[**]")[0:2]:
             #    final_value += value
-            displayDict['value'] = final_value
+            displayDict['value'] = "blah"
             print(final_value)
             displayDict['ID'] = '0'
             break
