@@ -200,7 +200,7 @@ def render_content(tab, n_intervals, columns, style):
                     'filter_query': '{priority} = 2',
                 },
                 'backgroundColor': '#e6e600',
-                'color': 'white'
+                'color': 'black'
             },
             {
                 'if': {
