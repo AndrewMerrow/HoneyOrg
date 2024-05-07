@@ -83,6 +83,7 @@ app.layout = html.Div([
 
 @callback(Output('table', 'data'),
           Output('table', 'columns'),
+          Output('table', 'style_data_conditional'),
           Input('tabs-test-1', 'value'),
           Input('table-update', 'n_intervals'),
           Input('table', 'columns'),
