@@ -166,7 +166,7 @@ def render_content(tab, n_intervals, columns, style):
             info = line.rstrip('\n').split('[**]')[2].split(' ')
             for i in range(len(info)):
                 if(info[i].find("Priority") != -1):
-                    displayDict['priority'] = info[i+1]
+                    displayDict['priority'] = info[i+1].rstrip(']')
             displayDict['value'].append(final_value)
             #print(final_value)
             displayDict['srcIP'].append(0)
