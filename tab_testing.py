@@ -187,12 +187,26 @@ def render_content(tab, n_intervals, columns, style):
                 },
                 'textAlign': 'left'
             },
-            #set color for command logs
+            #set color based on priority level
+            {
+                'if': {
+                    'filter_query': '{priority} = 1',
+                },
+                'backgroundColor': '#e60000',
+                'color': 'white'
+            },
             {
                 'if': {
                     'filter_query': '{priority} = 2',
                 },
-                'backgroundColor': 'tomato',
+                'backgroundColor': '#e6e600',
+                'color': 'white'
+            },
+            {
+                'if': {
+                    'filter_query': '{priority} = 3',
+                },
+                'backgroundColor': '#1a1aff',
                 'color': 'white'
             },
             #set color for login/logout logs
