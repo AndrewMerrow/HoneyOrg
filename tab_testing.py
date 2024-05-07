@@ -37,8 +37,8 @@ df = pd.DataFrame(displayDict)
 
 app.layout = html.Div([
     dcc.Tabs(id='tabs-test-1', value='tab-test-1', children=[
-        dcc.Tab(label='Tab One', value='tab-test-1'),
-        dcc.Tab(label='Tab Two', value='tab-test-2'),
+        dcc.Tab(label='HoneyOrg', value='tab-test-1'),
+        dcc.Tab(label='HoneyHome', value='tab-test-2'),
     ]),
     html.Div([
     dcc.Interval('table-update', interval=5 * 1000, n_intervals = 0),
