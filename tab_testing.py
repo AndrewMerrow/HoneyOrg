@@ -126,8 +126,9 @@ def render_content(tab, n_intervals):
         displayDict['ID'] = []
         for line in commands.readlines():
             print(line.rstrip('\n').split("[**]"))
+            displayDict['value'] = line.rstrip('\n').split("[**]")[0:2]
             break
-        df = pd.DataFrame()
+        df = pd.DataFrame(displayDict)
         return df.to_dict('records')
 
 
