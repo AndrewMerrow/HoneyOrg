@@ -82,49 +82,40 @@ app.layout = html.Div([
 ])
 ])
 
-@callback(Output('tabs-content-test', 'children'),
+@callback(Output('table', 'data'),
           Input('tabs-test-1', 'value'))
 def render_content(tab):
     if tab == 'tab-test-1':
-        return html.Div([
-    dcc.Interval('table-update', interval=5 * 1000, n_intervals = 0),
-    dash_table.DataTable(
-        id='table',
-        data=df.to_dict('records'),
-        #enble filtering 
-        filter_action='native',
-        sort_action='native',
-        columns=[
-            {'name': 'Type', 'id':'type', 'type':'text'},
-            {'name': 'ID', 'id': 'ID', 'type':'text'},
-            {'name': 'Value', 'id':'value', 'type':'text'},
-        ],
-        style_data_conditional=[
-            {
-                'if': {
-                    'column_type': 'text'
-                },
-                'textAlign': 'left'
-            },
-            #set color for command logs
-            {
-                'if': {
-                    'filter_query': '{type} = command',
-                },
-                'backgroundColor': 'tomato',
-                'color': 'white'
-            },
-            #set color for login/logout logs
-            {
-                'if': {
-                    'filter_query': '{type} = login || {type} = logout',
-                },
-                'backgroundColor': '#0000ff',
-                'color': 'white'
-            }
-        ]
-    )
-])
+        '''Update function that reads the log file and updates the table every 5 seconds'''
+        commands = open("/home/bsalas/cowrie.log", "r")
+        displayDict = OrderedDict()
+        displayDict['type'] = []
+        displayDict['value'] = []
+        displayDict['ID'] = []
+        for line in commands.readlines():
+            #Search the log file lines for specific phrases
+            if line.find("Command found") != -1:
+                displayDict["type"].append("command")
+                displayDict["value"].append(line.rstrip("\n"))
+                sessionID = line.split(',')[1]
+                displayDict['ID'].append(sessionID)
+            elif line.find("login attempt") != -1:
+                displayDict["type"].append("login")
+                displayDict["value"].append(line.rstrip("\n"))
+                sessionID = line.split(',')[1]
+                displayDict['ID'].append(sessionID)
+            elif line.find("Connection lost") != -1:
+                displayDict["type"].append("logout")
+                displayDict["value"].append(line.rstrip("\n"))
+                sessionID = line.split(',')[1]
+                displayDict['ID'].append(sessionID)
+            #elif line.find("connection lost") != -1:
+            #    displayDict["type"].append("logout")
+            #    displayDict["value"].append(line.rstrip("\n"))
+
+        df = pd.DataFrame(displayDict)
+        
+        return df.to_dict('records')
 
     elif tab == 'tab-test-2':
         return html.Div([
