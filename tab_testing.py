@@ -85,8 +85,9 @@ app.layout = html.Div([
           Output('table', 'columns'),
           Input('tabs-test-1', 'value'),
           Input('table-update', 'n_intervals'),
-          Input('table', 'columns'))
-def render_content(tab, n_intervals, columns):
+          Input('table', 'columns'),
+          Input('table', 'style_data_conditional'))
+def render_content(tab, n_intervals, columns, style):
     if tab == 'tab-test-1':
         '''Update function that reads the log file and updates the table every 5 seconds'''
         commands = open("/home/bsalas/cowrie.log", "r")
@@ -117,7 +118,7 @@ def render_content(tab, n_intervals, columns):
 
         df = pd.DataFrame(displayDict)
         
-        return df.to_dict('records'), columns
+        return df.to_dict('records'), columns, style
 
     elif tab == 'tab-test-2':
         commands = open("/home/bsalas/alert", "r")
@@ -143,7 +144,31 @@ def render_content(tab, n_intervals, columns):
             {'name': 'Test', 'id': 'ID', 'type':'text'},
             {'name': 'Test', 'id':'value', 'type':'text'},
         ]
-        return df.to_dict('records'), columns
+        style = [
+            {
+                'if': {
+                    'column_type': 'text'
+                },
+                'textAlign': 'left'
+            },
+            #set color for command logs
+            {
+                'if': {
+                    'filter_query': '{type} = command',
+                },
+                'backgroundColor': 'tomato',
+                'color': 'white'
+            },
+            #set color for login/logout logs
+            {
+                'if': {
+                    'filter_query': '{type} = login || {type} = logout',
+                },
+                'backgroundColor': '#0000ff',
+                'color': 'white'
+            }
+        ]
+        return df.to_dict('records'), columns, style
 
 
 if __name__ == '__main__':
