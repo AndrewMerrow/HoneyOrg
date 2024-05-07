@@ -153,19 +153,24 @@ def render_content(tab, n_intervals, columns, style):
     elif tab == 'tab-test-2':
         commands = open("/home/bsalas/alert", "r")
         displayDict = OrderedDict()
-        displayDict['type'] = []
+        displayDict['priority'] = []
         displayDict['value'] = []
-        displayDict['ID'] = []
+        displayDict['srcIP'] = []
+        displayDict['destIP'] = []
         for line in commands.readlines():
             #print(line.rstrip('\n').split("[**]"))
-            displayDict['type'].append('test')
             final_value = ""
             for value in line.rstrip('\n').split("[**]")[0:2]:
                 final_value += value
             print(line.rstrip('\n').split('[**]')[2].split(' '))
+            info = line.rstrip('\n').split('[**]')[2].split(' ')
+            for i in range(len(info)):
+                if(info[i].find("Priority") != -1):
+                    displayDict['priority'] = info[i+1]
             displayDict['value'].append(final_value)
-            print(final_value)
-            displayDict['ID'].append(0)
+            #print(final_value)
+            displayDict['srcIP'].append(0)
+            displayDict['destIP'].append(0)
             break
 
         df = pd.DataFrame(displayDict)
