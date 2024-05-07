@@ -5,6 +5,36 @@ from collections import OrderedDict
 
 app = Dash(__name__)
 
+commands = open("/home/bsalas/cowrie.log", "r")
+displayDict = OrderedDict()
+displayDict['type'] = []
+displayDict['value'] = []
+displayDict['ID'] = []
+for line in commands.readlines():
+    if line.find("Command found") != -1:
+        displayDict["type"].append("command")
+        displayDict["value"].append(line.rstrip("\n"))
+        sessionID = line.split(',')[1]
+        displayDict['ID'].append(sessionID)
+        print(sessionID)
+    elif line.find("login attempt") != -1:
+        displayDict["type"].append("login")
+        displayDict["value"].append(line.rstrip("\n"))
+        sessionID = line.split(',')[1]
+        displayDict['ID'].append(sessionID)
+    elif line.find("Connection lost") != -1:
+        displayDict["type"].append("logout")
+        displayDict["value"].append(line.rstrip("\n"))
+        displayDict['ID'].append(sessionID)
+        sessionID = line.split(',')[1]
+    #elif line.find("connection lost") != -1:
+    #    displayDict["type"].append("logout")
+    #    displayDict["value"].append(line.rstrip("\n"))
+    #    sessionID = line.split(',')[1]
+    #    displayDict['ID'].append(sessionID)
+
+df = pd.DataFrame(displayDict)
+
 app.layout = html.Div([
     dcc.Tabs(id='tabs-test-1', value='tab-test-1', children=[
         dcc.Tab(label='Tab One', value='tab-test-1'),
@@ -18,17 +48,45 @@ app.layout = html.Div([
 def render_content(tab):
     if tab == 'tab-test-1':
         return html.Div([
-            html.H3('Tab content 1'),
-            dcc.Graph(
-                figure={
-                    'data': [{
-                        'x': [1, 2, 3],
-                        'y': [3, 1, 2],
-                        'type': 'bar'
-                    }]
-                }
-            )
-        ])
+    dcc.Interval('table-update', interval=5 * 1000, n_intervals = 0),
+    dash_table.DataTable(
+        id='table',
+        data=df.to_dict('records'),
+        #enble filtering 
+        filter_action='native',
+        sort_action='native',
+        columns=[
+            {'name': 'Type', 'id':'type', 'type':'text'},
+            {'name': 'ID', 'id': 'ID', 'type':'text'},
+            {'name': 'Value', 'id':'value', 'type':'text'},
+        ],
+        style_data_conditional=[
+            {
+                'if': {
+                    'column_type': 'text'
+                },
+                'textAlign': 'left'
+            },
+            #set color for command logs
+            {
+                'if': {
+                    'filter_query': '{type} = command',
+                },
+                'backgroundColor': 'tomato',
+                'color': 'white'
+            },
+            #set color for login/logout logs
+            {
+                'if': {
+                    'filter_query': '{type} = login || {type} = logout',
+                },
+                'backgroundColor': '#0000ff',
+                'color': 'white'
+            }
+        ]
+    )
+])
+
     elif tab == 'tab-test-2':
         return html.Div([
             html.H3('Tab content 2'),
