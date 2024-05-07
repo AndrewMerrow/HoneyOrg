@@ -128,8 +128,8 @@ def render_content(tab, n_intervals):
             #print(line.rstrip('\n').split("[**]"))
             displayDict['type'] = 'test'
             final_value = ""
-            for value in line.rstrip('\n').split("[**]")[0:2]:
-                final_value += value
+            #for value in line.rstrip('\n').split("[**]")[0:2]:
+            #    final_value += value
             displayDict['value'] = final_value
             print(final_value)
             displayDict['ID'] = '0'
