@@ -42,6 +42,7 @@ app.layout = html.Div([
     dash_table.DataTable(
         id='table',
         data=df.to_dict('records'),
+        #enble filtering 
         filter_action='native',
         sort_action='native',
         columns=[
