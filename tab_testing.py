@@ -119,6 +119,14 @@ def render_content(tab, n_intervals):
         return df.to_dict('records')
 
     elif tab == 'tab-test-2':
+        commands = open("/home/bsalas/alert", "r")
+        displayDict = OrderedDict()
+        displayDict['type'] = []
+        displayDict['value'] = []
+        displayDict['ID'] = []
+        for line in commands.readlines():
+            print(line.split(" "))
+            break
         df = pd.DataFrame()
         return df.to_dict('records')
 
