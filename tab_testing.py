@@ -2,6 +2,8 @@ from dash import Dash, html, dcc, Input, Output, callback, dash_table
 import pandas as pd
 from collections import OrderedDict
 
+PORT = 8050
+ADDRESS = '192.168.230.15'
 
 app = Dash(__name__)
 
@@ -222,4 +224,6 @@ def render_content(tab, n_intervals, columns, style):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,
+            port=PORT,
+            host=ADDRESS)
