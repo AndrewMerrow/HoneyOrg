@@ -40,7 +40,6 @@ app.layout = html.Div([
         dcc.Tab(label='Tab One', value='tab-test-1'),
         dcc.Tab(label='Tab Two', value='tab-test-2'),
     ]),
-    html.Div(id='tabs-content-test'),
     html.Div([
     dcc.Interval('table-update', interval=5 * 1000, n_intervals = 0),
     dash_table.DataTable(
@@ -83,9 +82,11 @@ app.layout = html.Div([
 ])
 
 @callback(Output('table', 'data'),
+          Output('table', 'columns'),
           Input('tabs-test-1', 'value'),
-          Input('table-update', 'n_intervals'))
-def render_content(tab, n_intervals):
+          Input('table-update', 'n_intervals'),
+          Input('table', 'columns'))
+def render_content(tab, n_intervals, columns):
     if tab == 'tab-test-1':
         '''Update function that reads the log file and updates the table every 5 seconds'''
         commands = open("/home/bsalas/cowrie.log", "r")
@@ -116,7 +117,7 @@ def render_content(tab, n_intervals):
 
         df = pd.DataFrame(displayDict)
         
-        return df.to_dict('records')
+        return df.to_dict('records'), columns
 
     elif tab == 'tab-test-2':
         commands = open("/home/bsalas/alert", "r")
@@ -137,7 +138,12 @@ def render_content(tab, n_intervals):
             break
 
         df = pd.DataFrame(displayDict)
-        return df.to_dict('records')
+        columns = [
+            {'name': 'Test', 'id':'type', 'type':'text'},
+            {'name': 'Test', 'id': 'ID', 'type':'text'},
+            {'name': 'Test', 'id':'value', 'type':'text'},
+        ]
+        return df.to_dict('records'), columns
 
 
 if __name__ == '__main__':
