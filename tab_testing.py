@@ -132,7 +132,7 @@ def render_content(tab, n_intervals):
                 final_value += value
             displayDict['value'] = value in line.rstrip('\n').split("[**]")[0:2]
             print(final_value)
-            displayDict['ID'] = 0
+            displayDict['ID'] = '0'
             break
         df = pd.DataFrame(displayDict)
         return df.to_dict('records')
