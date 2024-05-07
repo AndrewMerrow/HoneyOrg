@@ -166,11 +166,14 @@ def render_content(tab, n_intervals, columns, style):
             info = line.rstrip('\n').split('[**]')[2].split(' ')
             for i in range(len(info)):
                 if(info[i].find("Priority") != -1):
-                    displayDict['priority'] = info[i+1].rstrip(']')
+                    displayDict['priority'].append(info[i+1].rstrip(']'))
+                elif(info[i].find("->") != -1):
+                    displayDict['srcIP'].append(info[i-1])
+                    displayDict['destIP'].append(info[i+1])
             displayDict['value'].append(final_value)
             #print(final_value)
-            displayDict['srcIP'].append(0)
-            displayDict['destIP'].append(0)
+            #displayDict['srcIP'].append(0)
+            #displayDict['destIP'].append(0)
             break
 
         df = pd.DataFrame(displayDict)
