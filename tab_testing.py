@@ -170,9 +170,10 @@ def render_content(tab, n_intervals, columns, style):
 
         df = pd.DataFrame(displayDict)
         columns = [
-            {'name': 'Test', 'id':'type', 'type':'text'},
-            {'name': 'Test', 'id': 'ID', 'type':'text'},
-            {'name': 'Test', 'id':'value', 'type':'text'},
+            {'name': 'Priority', 'id':'priority', 'type':'text'},
+            {'name': 'Value', 'id': 'value', 'type':'text'},
+            {'name': 'Src IP', 'id':'srcIP', 'type':'text'},
+            {'name': 'Dest IP', 'id':'destIP', 'type':'text'},
         ]
         style = [
             {
@@ -184,7 +185,7 @@ def render_content(tab, n_intervals, columns, style):
             #set color for command logs
             {
                 'if': {
-                    'filter_query': '{type} = command',
+                    'filter_query': '{priority} = 2',
                 },
                 'backgroundColor': 'tomato',
                 'color': 'white'
