@@ -84,8 +84,8 @@ app.layout = html.Div([
 
 @callback(Output('table', 'data'),
           Input('tabs-test-1', 'value'),
-          Input(component_id='table-update', component_property='n_intervals'))
-def render_content(tab):
+          Input('table-update', 'n_intervals'))
+def render_content(tab, n_intervals):
     if tab == 'tab-test-1':
         '''Update function that reads the log file and updates the table every 5 seconds'''
         commands = open("/home/bsalas/cowrie.log", "r")
