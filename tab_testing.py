@@ -133,7 +133,6 @@ def render_content(tab, n_intervals):
             displayDict['value'].append(final_value)
             print(final_value)
             displayDict['ID'].append(0)
-            break
         df = pd.DataFrame(displayDict)
         return df.to_dict('records')
 
