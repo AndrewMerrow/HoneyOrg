@@ -40,7 +40,46 @@ app.layout = html.Div([
         dcc.Tab(label='Tab One', value='tab-test-1'),
         dcc.Tab(label='Tab Two', value='tab-test-2'),
     ]),
-    html.Div(id='tabs-content-test')
+    html.Div(id='tabs-content-test'),
+    html.Div([
+    dcc.Interval('table-update', interval=5 * 1000, n_intervals = 0),
+    dash_table.DataTable(
+        id='table',
+        data=df.to_dict('records'),
+        #enble filtering 
+        filter_action='native',
+        sort_action='native',
+        columns=[
+            {'name': 'Type', 'id':'type', 'type':'text'},
+            {'name': 'ID', 'id': 'ID', 'type':'text'},
+            {'name': 'Value', 'id':'value', 'type':'text'},
+        ],
+        style_data_conditional=[
+            {
+                'if': {
+                    'column_type': 'text'
+                },
+                'textAlign': 'left'
+            },
+            #set color for command logs
+            {
+                'if': {
+                    'filter_query': '{type} = command',
+                },
+                'backgroundColor': 'tomato',
+                'color': 'white'
+            },
+            #set color for login/logout logs
+            {
+                'if': {
+                    'filter_query': '{type} = login || {type} = logout',
+                },
+                'backgroundColor': '#0000ff',
+                'color': 'white'
+            }
+        ]
+    )
+])
 ])
 
 @callback(Output('tabs-content-test', 'children'),
