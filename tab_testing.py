@@ -102,7 +102,41 @@ def render_content(tab):
             )
         ])
 
+@callback(
+    Output(component_id='table', component_property='data'),
+    Input(component_id='table-update', component_property='n_intervals')
+)
+def getCommands(n_intervals):
+    '''Update function that reads the log file and updates the table every 5 seconds'''
+    commands = open("/home/bsalas/cowrie.log", "r")
+    displayDict = OrderedDict()
+    displayDict['type'] = []
+    displayDict['value'] = []
+    displayDict['ID'] = []
+    for line in commands.readlines():
+        #Search the log file lines for specific phrases
+        if line.find("Command found") != -1:
+            displayDict["type"].append("command")
+            displayDict["value"].append(line.rstrip("\n"))
+            sessionID = line.split(',')[1]
+            displayDict['ID'].append(sessionID)
+        elif line.find("login attempt") != -1:
+            displayDict["type"].append("login")
+            displayDict["value"].append(line.rstrip("\n"))
+            sessionID = line.split(',')[1]
+            displayDict['ID'].append(sessionID)
+        elif line.find("Connection lost") != -1:
+            displayDict["type"].append("logout")
+            displayDict["value"].append(line.rstrip("\n"))
+            sessionID = line.split(',')[1]
+            displayDict['ID'].append(sessionID)
+        #elif line.find("connection lost") != -1:
+        #    displayDict["type"].append("logout")
+        #    displayDict["value"].append(line.rstrip("\n"))
 
+    df = pd.DataFrame(displayDict)
+    
+    return df.to_dict('records')
 
 if __name__ == '__main__':
     app.run(debug=True)
